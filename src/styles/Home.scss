@@ -7,14 +7,22 @@
     text-align: center;
     font-size: xx-large;
   }
+  .addnew {
+    display: flex;
+    // min-width: 80vw;
+    justify-content: flex-end;
+    padding: 30px;
+  }
   .list {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     column-gap: 400px;
+    // border: 1px solid black;
     &__items {
       display: flex;
       flex-direction: column;
+      margin: 10px;
     }
     &__item-details {
       display: flex;
@@ -31,5 +39,9 @@
   }
   .title {
     text-align: center;
+  }
+  .FAB {
+    display: flex;
+    justify-content: flex-end;
   }
 }
