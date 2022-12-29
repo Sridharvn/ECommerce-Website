@@ -15,6 +15,9 @@ function Home(props) {
     <div className="home">
       <h1 className="title">Welcome to Our E-Commerce Store</h1>
       <p className="subtitle">Here are some of our featured products:</p>
+      <div className="addnew">
+        <button>Add +</button>
+      </div>
       <ul className="list">
         {products.map((product) => (
           <li key={product.id} className="list__items">
