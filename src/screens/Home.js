@@ -1,101 +1,194 @@
-import React from "react";
-import "./../styles/Home.scss";
 import {
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Fab,
-  Typography,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TextField,
 } from "@mui/material";
-import { Box } from "@mui/system";
-const dummyProducts = [
-  { id: 1, name: "Product 1", price: 19.99 },
-  { id: 2, name: "Product 2", price: 29.99 },
-  { id: 3, name: "Product 3", price: 39.99 },
-  { id: 1, name: "Product 1", price: 19.99 },
-  { id: 2, name: "Product 2", price: 29.99 },
-  { id: 3, name: "Product 3", price: 39.99 },
-];
-const Cart = [
-  { id: 1, name: "Product 1", price: 19.99 },
-  { id: 2, name: "Product 2", price: 29.99 },
-  { id: 3, name: "Product 3", price: 39.99 },
-  { id: 1, name: "Product 1", price: 19.99 },
-  { id: 2, name: "Product 2", price: 29.99 },
-  { id: 3, name: "Product 3", price: 39.99 },
-];
+import React, { useState, useEffect } from "react";
+import "./../styles/Home.scss";
 
-const addToCart = () => {};
+function EcommerceDashboard() {
+  const [products, setProducts] = useState([]);
+  const [formData, setFormData] = useState({
+    id: "",
+    name: "",
+    price: "",
+  });
+  const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+  const [isEditFormVisible, setIsEditFormVisible] = useState(false);
 
-function Home() {
-  //   const { products } = props;
-  const products = dummyProducts;
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch("http://localhost:4000/api/products");
+      const data = await response.json();
+      setProducts(data);
+    };
+    fetchProducts();
+  }, []);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((formData) => ({
+      ...formData,
+      [name]: value,
+    }));
+  };
+  const handleAddProduct = () => {
+    setIsAddFormVisible(true);
+  };
+
+  const handleCancelAdd = () => {
+    setIsAddFormVisible(false);
+    setFormData({
+      id: "",
+      name: "",
+      price: "",
+    });
+  };
+  const handleSaveAdd = async () => {
+    const response = await fetch("http://localhost:4000/api/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    setProducts((products) => [...products, data]);
+    setIsAddFormVisible(false);
+    setFormData({
+      id: "",
+      name: "",
+      price: "",
+    });
+  };
+  const handleEditProduct = (product) => {
+    setFormData(product);
+    setIsEditFormVisible(true);
+  };
+  const handleCancelEdit = () => {
+    setIsEditFormVisible(false);
+    setFormData({
+      id: "",
+      name: "",
+      price: "",
+    });
+  };
+  const handleSaveEdit = async () => {
+    const response = await fetch(
+      `http://localhost:4000/api/products/${formData.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+    const data = await response.json();
+    setProducts((products) =>
+      products.map((product) => (product.id === data.id ? data : product))
+    );
+    setIsEditFormVisible(false);
+    setFormData({
+      id: "",
+      price: "",
+    });
+  };
+
+  const handleDeleteProduct = async (product) => {
+    const response = await fetch(
+      `http://localhost:4000/api/products/${product.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    if (response.ok) {
+      setProducts((products) => products.filter((p) => p.id !== product.id));
+    }
+  };
+
   return (
-    <Box sx={{ "& > :not(style)": { m: 1 } }}>
-      <div className="home">
-        <h1 className="title">Welcome to Our E-Commerce Store</h1>
-        <p className="subtitle">Here are some of our featured products:</p>
-        <div className="addnew">
-          <Button variant="outlined" color="inherit">
-            Add New
-          </Button>
-        </div>
-        {/* <ul className="list">
-        {products.map((product) => (
-          <li key={product.id} className="list__items">
-            <div className="list__item-details">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpNuOMXqLC_CFGX1PiUAcRAYB1sicxuHlH8g&usqp=CAU"
-                alt=""
-                className="list__item-image"
-              />
-              {product.name} - ${product.price}
-            </div>
-          </li>
-        ))}
-      </ul> */}{" "}
-        <div className="list">
-          {products.map((product) => (
-            <Card
-              color="inherit"
-              sx={{ maxWidth: 345 }}
-              key={product.id}
-              className="list__items"
-            >
-              <CardMedia
-                sx={{ height: 200 }}
-                image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpNuOMXqLC_CFGX1PiUAcRAYB1sicxuHlH8g&usqp=CAU"
-                title="Shoe"
-                className="list__item-image"
-              />
-              <CardContent className="list__item-details">
-                <Typography gutterBottom variant="h5" component="div">
-                  {product.name}- ${product.price}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Product Description
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small" color="inherit">
-                  Add To Cart
-                </Button>
-                {/* <Button size="small">Learn More</Button> */}
-              </CardActions>
-            </Card>
-          ))}
-        </div>
-        <div className="FAB">
-          <Fab color="inherit" aria-label="add" variant="extended">
-            {Cart.length} Items in Cart
-          </Fab>
-        </div>
-        <p className="footer">Thank you for visiting!</p>
-      </div>
-    </Box>
+    <div className="ecommerce-dashboard">
+      <Paper>
+        {isAddFormVisible ? (
+          <form>
+            <TextField
+              label="Name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <br />
+            <TextField
+              label="Price"
+              name="price"
+              type="number"
+              value={formData.price}
+              onChange={handleChange}
+            />
+            <br />
+            <Button onClick={handleCancelAdd}>Cancel</Button>
+            <Button onClick={handleSaveAdd}>Save</Button>
+          </form>
+        ) : (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell>Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {products.map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell>{product.id}</TableCell>
+                  <TableCell>{product.name}</TableCell>
+                  <TableCell>{product.price}</TableCell>
+                  <TableCell>
+                    <Button onClick={() => handleEditProduct(product)}>
+                      Edit
+                    </Button>
+                    <Button onClick={() => handleDeleteProduct(product)}>
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
+        {isEditFormVisible ? (
+          <form>
+            <TextField
+              label="Name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <br />
+            <TextField
+              label="Price"
+              name="price"
+              type="number"
+              value={formData.price}
+              onChange={handleChange}
+            />
+            <br />
+            <Button onClick={handleCancelEdit}>Cancel</Button>
+            <Button onClick={handleSaveEdit}>Save</Button>
+          </form>
+        ) : (
+          <Button onClick={handleAddProduct}>Add Product</Button>
+        )}
+      </Paper>
+    </div>
   );
 }
 
-export default Home;
+export default EcommerceDashboard;

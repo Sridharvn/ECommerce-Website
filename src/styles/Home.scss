@@ -1,47 +1,45 @@
-.home {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+.ecommerce-dashboard {
+  .MuiPaper-root {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
 
-  .footer {
-    text-align: center;
-    font-size: xx-large;
-  }
-  .addnew {
-    display: flex;
-    // min-width: 80vw;
-    justify-content: flex-end;
-    padding: 30px;
-  }
-  .list {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    column-gap: 400px;
-    // border: 1px solid black;
-    &__items {
-      display: flex;
-      flex-direction: column;
-      margin: 10px;
+    .MuiTable-root {
+      width: 100%;
+      border-collapse: collapse;
+
+      .MuiTableHead-root,
+      .MuiTableBody-root {
+        tr {
+          th,
+          td {
+            text-align: left;
+            padding: 12px;
+          }
+        }
+      }
+
+      .MuiTableHead-root {
+        tr {
+          th {
+            font-weight: bold;
+            font-size: 16px;
+          }
+        }
+      }
     }
-    &__item-details {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-    }
-    &__item-image {
-      mix-blend-mode: multiply;
+
+    .MuiButton-root {
+      margin-right: 10px;
     }
   }
-  .subtitle {
-    text-align: center;
-  }
-  .title {
-    text-align: center;
-  }
-  .FAB {
+
+  form {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+
+    .MuiTextField-root {
+      margin-bottom: 20px;
+    }
   }
 }
