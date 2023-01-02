@@ -20,7 +20,7 @@ const db = new sqlite3.Database(":memory:", (err) => {
 // Initialize the products table
 db.serialize(() => {
   db.run(
-    "CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, price REAL)"
+    "CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, price REAL, picture TEXT)"
   );
 });
 
@@ -32,17 +32,23 @@ app.get("/api/products", (req, res) => {
 });
 
 app.post("/api/products", (req, res) => {
-  const { name, price } = req.body;
+  const { name, price, picture } = req.body;
   db.run(
-    "INSERT INTO products (name, price) VALUES (?, ?)",
+    "INSERT   INTO products (name, price, picture) VALUES (?, ?, ?)",
     name,
     price,
+    picture,
     (err) => {
       if (err) {
         console.error(err);
         res.sendStatus(500);
       } else {
-        res.sendStatus(201);
+        db.get(
+          "SELECT * FROM products WHERE id = last_insert_rowid()",
+          (err, row) => {
+            res.json(row);
+          }
+        );
       }
     }
   );
@@ -50,18 +56,21 @@ app.post("/api/products", (req, res) => {
 
 app.put("/api/products/:id", (req, res) => {
   const { id } = req.params;
-  const { name, price } = req.body;
+  const { name, price, picture } = req.body;
   db.run(
-    "UPDATE products SET name = ?, price = ? WHERE id = ?",
+    "UPDATE products SET name = ?, price = ?, picture = ? WHERE id = ?",
     name,
     price,
+    picture,
     id,
     (err) => {
       if (err) {
         console.error(err);
         res.sendStatus(500);
       } else {
-        res.sendStatus(200);
+        db.get("SELECT * FROM products WHERE id = ?", id, (err, row) => {
+          res.json(row);
+        });
       }
     }
   );

@@ -64,6 +64,7 @@ function EcommerceDashboard() {
       name: "",
       price: "",
     });
+    setIsAddFormVisible(false);
   };
   const handleEditProduct = (product) => {
     setFormData(product);
@@ -97,6 +98,7 @@ function EcommerceDashboard() {
       id: "",
       price: "",
     });
+    setIsAddFormVisible(false);
   };
 
   const handleDeleteProduct = async (product) => {
