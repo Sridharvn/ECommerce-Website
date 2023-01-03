@@ -1,6 +1,11 @@
+$start-color: #03838f;
+$mid-color: #70d9e3;
+$end-color: #ffffff;
+
 .app {
-  min-height: 100vh;
-  min-width: 100vw;
+  height: 100vh;
+  width: 100vw;
+
   // border: 12px black solid;
 
   font-family: Arial, Helvetica, sans-serif;
@@ -8,7 +13,8 @@
   margin: 0;
   box-sizing: border-box;
   background-color: white;
+  background: linear-gradient(to bottom, $start-color, $mid-color, $end-color);
 }
 * {
-  color: rgb(81, 80, 80) !important;
+  color: rgb(0, 59, 81) !important;
 }
