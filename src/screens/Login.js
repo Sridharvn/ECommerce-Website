@@ -3,22 +3,36 @@ import React, { useState } from "react";
 import "../styles/Login.scss";
 
 function LoginForm() {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((formData) => ({
-      ...formData,
-      [name]: value,
-    }));
-  };
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormData((formData) => ({
+  //     ...formData,
+  //     [name]: value,
+  //   }));
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // send login request to server
+    fetch("http://localhost:4000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          // Redirect to the dashboard
+          window.location.href = "/";
+        } else {
+          setError(data.error);
+        }
+      });
   };
 
   return (
@@ -29,8 +43,8 @@ function LoginForm() {
           label="Username"
           name="username"
           className="form__input"
-          value={formData.username}
-          onChange={handleChange}
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
         />
         <br />
         <TextField
@@ -38,8 +52,8 @@ function LoginForm() {
           type="password"
           name="password"
           className="form__input"
-          value={formData.password}
-          onChange={handleChange}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
         />
         <br />
         <div className="form__button-wrapper">

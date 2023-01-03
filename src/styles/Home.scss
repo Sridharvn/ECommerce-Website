@@ -1,8 +1,16 @@
 .ecommerce-dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100vw;
+  height: 100vh;
+  margin-top: 10vh;
   .MuiPaper-root {
     width: 80%;
     margin: 20px auto;
     padding: 20px;
+    background-color: #efefef;
+    box-shadow: black;
 
     .MuiTable-root {
       width: 100%;
@@ -31,6 +39,9 @@
 
     .MuiButton-root {
       margin-right: 10px;
+      margin-top: 10px;
+      background-color: rgb(59, 59, 59);
+      color: white !important;
     }
   }
 

@@ -2,13 +2,26 @@ const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
-
+const users = [
+  {
+    id: 1,
+    username: "user1",
+    password: "pass1",
+  },
+  {
+    id: 2,
+    username: "user2",
+    password: "pass2",
+  },
+];
+const jwtSecret = "secret";
 // Connect to the database
 const db = new sqlite3.Database(":memory:", (err) => {
   if (err) {
@@ -25,6 +38,19 @@ db.serialize(() => {
 });
 
 // Set up the routes
+app.post("/api/login", (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find(
+    (u) => u.username === username && u.password === password
+  );
+  if (user) {
+    const token = jwt.sign({ id: user.id, username: user.username }, jwtSecret);
+    res.json({ token });
+  } else {
+    res.sendStatus(401);
+  }
+});
+
 app.get("/api/products", (req, res) => {
   db.all("SELECT * FROM products", (err, rows) => {
     res.json(rows);
