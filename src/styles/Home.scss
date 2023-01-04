@@ -1,58 +1,101 @@
-.ecommerce-dashboard {
+.dashboardPage {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  width: 100vw;
-  height: 100vh;
-  // margin-top: 10vh;
-  .MuiPaper-root {
-    width: 80%;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #efefef;
-    opacity: 75%;
-    box-shadow: black;
-
-    .MuiTable-root {
-      width: 100%;
-      border-collapse: collapse;
-
-      .MuiTableHead-root,
-      .MuiTableBody-root {
-        tr {
-          th,
-          td {
-            text-align: left;
-            padding: 12px;
-            border-color: black;
-          }
-        }
+  h1 {
+    margin-left: 7.5vw;
+    padding: 30px;
+  }
+  .appBar {
+    background-color: transparentize($color: #ffffff, $amount: 0.43);
+    .toolBar {
+      display: flex;
+      justify-content: space-between;
+      &__heading {
+        display: flex;
+        align-items: center;
       }
-
-      .MuiTableHead-root {
-        tr {
-          th {
-            font-weight: bold;
-            font-size: 16px;
-          }
-        }
+      &__image {
+        height: 100px;
+        mix-blend-mode: multiply;
       }
-    }
-
-    .MuiButton-root {
-      margin-right: 10px;
-      margin-top: 10px;
-      background-color: rgb(59, 59, 59);
-      color: white !important;
     }
   }
-
-  form {
+  .ecommerce-dashboard {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    // height: 100vh;
+    margin-top: -2vh;
+    .MuiPaper-root {
+      width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #efefef;
+      opacity: 75%;
+      box-shadow: black;
 
-    .MuiTextField-root {
-      margin-bottom: 20px;
+      .MuiTable-root {
+        width: 100%;
+        border-collapse: collapse;
+
+        .MuiTableHead-root,
+        .MuiTableBody-root {
+          tr {
+            th,
+            td {
+              text-align: left;
+              padding: 12px;
+              border-color: black;
+            }
+          }
+        }
+
+        .MuiTableHead-root {
+          tr {
+            th {
+              font-weight: bold;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+
+      .MuiButton-root {
+        margin-right: 10px;
+        margin-top: 10px;
+        background-color: rgb(59, 59, 59);
+        color: white !important;
+      }
     }
+
+    form {
+      display: flex;
+      flex-direction: column;
+
+      .MuiTextField-root {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  background-color: #2ca3ae50;
+  color: white !important;
+  // padding-top: 10px;
+  // padding-bottom: 5px;
+  img {
+    height: 40px;
+    mix-blend-mode: multiply;
   }
 }

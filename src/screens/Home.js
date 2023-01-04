@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/alt-text */
 import {
+  AppBar,
   Button,
   Paper,
   Table,
@@ -7,6 +9,8 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Toolbar,
+  Typography,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import "./../styles/Home.scss";
@@ -114,81 +118,102 @@ function EcommerceDashboard() {
   };
 
   return (
-    <div className="ecommerce-dashboard">
-      <Paper>
-        {isAddFormVisible ? (
-          <form>
-            <TextField
-              label="Name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
+    <div className="dashboardPage">
+      <AppBar position="static" className="appBar">
+        <Toolbar className="toolBar">
+          <div className="toolBar__heading">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSygZMPOdHR5PdI5ep1PWCERYy59Lxsu6EBUg&usqp=CAU"
+              className="toolBar__image"
             />
-            <br />
-            <TextField
-              label="Price"
-              name="price"
-              type="number"
-              value={formData.price}
-              onChange={handleChange}
-            />
-            <br />
-            <Button onClick={handleCancelAdd}>Cancel</Button>
-            <Button onClick={handleSaveAdd}>Save</Button>
-          </form>
-        ) : (
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {products.map((product) => (
-                <TableRow key={product.id}>
-                  <TableCell>{product.id}</TableCell>
-                  <TableCell>{product.name}</TableCell>
-                  <TableCell>{product.price}</TableCell>
-                  <TableCell>
-                    <Button onClick={() => handleEditProduct(product)}>
-                      Edit
-                    </Button>
-                    <Button onClick={() => handleDeleteProduct(product)}>
-                      Delete
-                    </Button>
-                  </TableCell>
+            <Typography variant="h3">E-Commerce Website</Typography>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <h1>Dashboard</h1>
+      <div className="ecommerce-dashboard">
+        <Paper>
+          {isAddFormVisible ? (
+            <form>
+              <TextField
+                label="Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+              <br />
+              <TextField
+                label="Price"
+                name="price"
+                type="number"
+                value={formData.price}
+                onChange={handleChange}
+              />
+              <br />
+              <Button onClick={handleCancelAdd}>Cancel</Button>
+              <Button onClick={handleSaveAdd}>Save</Button>
+            </form>
+          ) : (
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>Actions</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
-        {isEditFormVisible ? (
-          <form>
-            <TextField
-              label="Name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            <br />
-            <TextField
-              label="Price"
-              name="price"
-              type="number"
-              value={formData.price}
-              onChange={handleChange}
-            />
-            <br />
-            <Button onClick={handleCancelEdit}>Cancel</Button>
-            <Button onClick={handleSaveEdit}>Save</Button>
-          </form>
-        ) : (
-          <Button onClick={handleAddProduct}>Add Product</Button>
-        )}
-      </Paper>
+              </TableHead>
+              <TableBody>
+                {products.map((product) => (
+                  <TableRow key={product.id}>
+                    <TableCell>{product.id}</TableCell>
+                    <TableCell>{product.name}</TableCell>
+                    <TableCell>{product.price}</TableCell>
+                    <TableCell>
+                      <Button onClick={() => handleEditProduct(product)}>
+                        Edit
+                      </Button>
+                      <Button onClick={() => handleDeleteProduct(product)}>
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+          {isEditFormVisible ? (
+            <form>
+              <TextField
+                label="Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+              <br />
+              <TextField
+                label="Price"
+                name="price"
+                type="number"
+                value={formData.price}
+                onChange={handleChange}
+              />
+              <br />
+              <Button onClick={handleCancelEdit}>Cancel</Button>
+              <Button onClick={handleSaveEdit}>Save</Button>
+            </form>
+          ) : (
+            <Button onClick={handleAddProduct}>Add Product</Button>
+          )}
+        </Paper>
+      </div>
+      <div className="footer">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSygZMPOdHR5PdI5ep1PWCERYy59Lxsu6EBUg&usqp=CAU"
+          alt=""
+        />
+        <p>E-Commerce Website</p>
+      </div>
     </div>
   );
 }
