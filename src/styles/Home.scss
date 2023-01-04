@@ -4,8 +4,15 @@
   justify-content: center;
   align-items: flex-start;
   h1 {
-    margin-left: 7.5vw;
+    // margin-left: 7.5vw;
     padding: 30px;
+  }
+  p {
+    // margin-left: 7.5vw;
+    padding: 30px;
+    margin-top: -43px;
+    font-weight: bold;
+    max-width: 30vw;
   }
   .appBar {
     background-color: transparentize($color: #ffffff, $amount: 0.43);
@@ -90,12 +97,24 @@
   left: 0;
   bottom: 0;
   width: 100vw;
-  background-color: #2ca3ae50;
-  color: white !important;
+  background-color: #2ca3ae43;
+  color: rgb(0, 29, 36) !important;
+  font-weight: bold;
   // padding-top: 10px;
   // padding-bottom: 5px;
   img {
     height: 40px;
     mix-blend-mode: multiply;
   }
+}
+.heading {
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4.5px);
+  -webkit-backdrop-filter: blur(4.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  margin-left: 9vw;
+  margin-bottom: 1vh;
+  margin-top: 1vh;
 }

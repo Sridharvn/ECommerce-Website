@@ -130,7 +130,13 @@ function EcommerceDashboard() {
           </div>
         </Toolbar>
       </AppBar>
-      <h1>Dashboard</h1>
+      <div className="heading">
+        <h1>Dashboard</h1>
+        <p>
+          Kindly use the provided table to add, remove, or edit dashboard items.
+          Each item takes a name and a price as input.
+        </p>
+      </div>
       <div className="ecommerce-dashboard">
         <Paper>
           {isAddFormVisible ? (
@@ -212,7 +218,7 @@ function EcommerceDashboard() {
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSygZMPOdHR5PdI5ep1PWCERYy59Lxsu6EBUg&usqp=CAU"
           alt=""
         />
-        <p>E-Commerce Website</p>
+        E-Commerce Website
       </div>
     </div>
   );
